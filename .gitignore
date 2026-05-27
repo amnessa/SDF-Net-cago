@@ -2,6 +2,7 @@
 /logs/
 /weights/
 /visualizations/
+.vscode
 /scripts
 check_pth.py
 *.sh
@@ -230,3 +231,6 @@ ENV/
 # Rope project settings
 .ropeproject
 
+logs
+extract_sdf_failure_cases.py
+stability_analysis.py

@@ -2,12 +2,10 @@
 
 # SDF-Net: Structure-aware Disentangled Feature Learning for Optical-SAR Ship Re-identification
 
-[![Paper](https://img.shields.io/badge/arXiv-2603.12588-b31b1b.svg)](https://arxiv.org/abs/2603.12588)
-
+> 🤗 **Pretrained Weights:** [https://huggingface.co/Chenfree233/SDF-Net/tree/main](https://huggingface.co/Chenfree233/SDF-Net/tree/main)
+>
 > 📄 **Paper:** [https://arxiv.org/abs/2603.12588](https://arxiv.org/abs/2603.12588)
-> 
-> 📥 **PDF:** [https://arxiv.org/pdf/2603.12588](https://arxiv.org/pdf/2603.12588)
-> 
+
 Official PyTorch implementation of **SDF-Net**. This project focuses on cross-modal ship re-identification (Re-ID) between Optical and Synthetic Aperture Radar (SAR) imagery by leveraging disentangled feature representation and structural consistency anchors.
 
 ## Abstract
@@ -42,7 +40,8 @@ data
 This project requires **Python 3.9+** and **PyTorch 2.2.2+cu118**.
 
 ```bash
-pip install -r requirements.txt
+conda env create -f environment.yml
+conda activate sdfnet
 
 ```
 
@@ -55,7 +54,7 @@ Key dependencies include `timm`, `yacs`, `opencv-python`, and `Pillow` (for 32-b
 Utilize large-scale Optical-SAR image pairs for cross-modal alignment:
 
 ```bash
-CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch --nproc_per_node=4 --master_port 6667 train_pair.py --config_file configs/pretrain_transoss.yml MODEL.DIST_TRAIN True
+python train_pair.py --config_file configs/pretrain_transoss.yml
 
 ```
 
@@ -64,11 +63,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch --nproc_per_node
 To train the full SDF-Net with **Disentanglement** and **Structural Consistency Loss**:
 
 ```bash
-# Single GPU training
 python train.py --config_file configs/SDF-Net.yml
-
-# Multiple GPUs training
-CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node=2 --master_port 6667 train.py --config_file configs/SDF-Net.yml MODEL.DIST_TRAIN True
 
 ```
 
@@ -77,18 +72,9 @@ CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node=2 -
 ### 3. Evaluation
 
 ```bash
-python test.py --config_file configs/SDF-Net.yml MODEL.DEVICE_ID "('0')" TEST.WEIGHT 'logs/new/SDF-Net_sum_struct6/best.pth'
+python test.py --config_file configs/SDF-Net.yml TEST.WEIGHT 'logs/SDF-Net/best.pth'
 
 ```
-
-## Core Configuration Parameters
-
-Refer to `config/defaults.py` for detailed settings:
-
-* `MODEL.DISENTANGLE`: Enable Shared/Specific feature separation.
-* `MODEL.STRUCT_LAYER_INDEX`: Index of the block for structural energy extraction (Default: 6).
-* `MODEL.STRUCT_LOSS_WEIGHT`: Weight for Structure Consistency Loss (SCL).
-* `MODEL.ORTH_LOSS_WEIGHT`: Weight for Orthogonal Loss between shared and specific tokens.
 
 ## Citation
 
