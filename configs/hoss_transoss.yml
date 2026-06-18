@@ -1,6 +1,6 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
-  PRETRAIN_PATH: "/home/share/chenfree/ReID/vit_b512_pre.pth"
+  PRETRAIN_PATH: "./weights/vit_b512_pre.pth"
   METRIC_LOSS_TYPE: 'triplet'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'no'
@@ -30,7 +30,7 @@ INPUT:
 
 DATASETS:
   NAMES: ('HOSS')
-  ROOT_DIR: ('/home/share/chenfree/ReID/')
+  ROOT_DIR: ('./data')
 
 DATALOADER:
   SAMPLER: 'softmax_triplet'

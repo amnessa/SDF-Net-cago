@@ -1,6 +1,6 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
-  PRETRAIN_PATH: "/home/share/chenfree/ReID/vit_base_p16_224-4e355ebd.pth"
+  PRETRAIN_PATH: "./weights/vit_base_p16_224-4e355ebd.pth"
   NAME: 'transformer'
   NO_MARGIN: True
   DEVICE_ID: ('0')
@@ -22,7 +22,7 @@ INPUT:
 
 DATASETS:
   NAMES: ('Pretrain')
-  ROOT_DIR: ('/home/share/chenfree/ReID/')
+  ROOT_DIR: ('./data')
 
 DATALOADER:
   SAMPLER: 'softmax_triplet'
